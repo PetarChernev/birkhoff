@@ -9,8 +9,11 @@ from polynomial import Polynomial
 def solve_lagrangian(x, w, incidence_matrix):
     """
     :param x: (np.ndarray, shape=(k,))
-    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|)
-    :param incidence_matrix: (IncidenceMatrix)
+    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|) can either be long
+        form (the w_ij ordered as they match the 1s in the incidence matrix rows first), square form (with the same
+        shape as incidence_matrix.array and having floats where there are 1s in incidence matrix and np.nan otherwise)
+        or as an already parsed Knots object.
+    :param incidence_matrix: (Union[IncidenceMatrix, np.ndarray, list])
     :return: (Polynomial)
     """
     assert len(x.shape) == 1
@@ -33,8 +36,11 @@ def solve_lagrangian(x, w, incidence_matrix):
 def solve(x, w, incidence_matrix) -> Polynomial:
     """
     :param x: (np.ndarray, shape=(k,))
-    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|)
-    :param incidence_matrix: (IncidenceMatrix)
+    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|) can either be long
+        form (the w_ij ordered as they match the 1s in the incidence matrix rows first), square form (with the same
+        shape as incidence_matrix.array and having floats where there are 1s in incidence matrix and np.nan otherwise)
+        or as an already parsed Knots object.
+    :param incidence_matrix: (Union[IncidenceMatrix, np.ndarray, list])
     :return: (Polynomial)
     """
     if isinstance(incidence_matrix, (np.ndarray, list)):
