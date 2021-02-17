@@ -43,8 +43,9 @@ class IncidenceMatrix:
                 left, right = [IncidenceMatrix.create(a) for a in arrays]
             except AssertionError:
                 continue
-            return left, right
-        raise ValueError('Matrix has no unique decomposition to irreducible matrices.')
+            if left.is_irreducible:
+                return left, right
+        raise ValueError('Matrix has no decomposition to irreducible matrices.')
 
     def reduce(self) -> Tuple["IncidenceMatrix", "IncidenceMatrix"]:
         up = np.copy(self.array[:, :-1])
