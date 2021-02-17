@@ -30,8 +30,8 @@ class TestAlgorithm(unittest.TestCase):
         for array in self.arrays:
             for i in range(self.test_cases_x):
                 for j in range(self.test_cases_w):
-                    x = np.sort(np.random.random(array.shape[0]))
-                    w = np.random.random(array.sum())
+                    x = self.spaced_semi_random_points(array.shape[0])
+                    w = np.random.permutation(self.spaced_semi_random_points(array.sum()))
                     print(f"Testing case ({i+1}, {j+1}) for incidence matrix \n{array}\n with x = {x}, w={w}")
                     self.run_single_tst(array, x, w)
 
@@ -46,6 +46,14 @@ class TestAlgorithm(unittest.TestCase):
                 if np.isnan(knots.square[i,j]):
                     continue
                 self.assertAlmostEqual(knots.square[i, j], results[i], 10)
+
+    @staticmethod
+    def spaced_semi_random_points(n, min_delta=1):
+        interval = 2 * min_delta
+        spacing = 3 * min_delta
+        centers = np.linspace(0, n*spacing, n)
+        displacements = interval * np.random.random(n)
+        return centers + displacements
 
 
 if __name__ == '__main__':

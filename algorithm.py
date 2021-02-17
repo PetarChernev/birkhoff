@@ -48,7 +48,8 @@ def solve(x, w, incidence_matrix) -> Polynomial:
         down_knots = Knots(w[:, :-1], down)
         down_solution = solve(x, down_knots, down)
 
-        x_pow_n_derivatives = np.array([math.factorial(incidence_matrix.n) / math.factorial(incidence_matrix.n - j) * x ** (incidence_matrix.n - j)
+        x_pow_n_derivatives = np.array([math.factorial(incidence_matrix.n) / math.factorial(incidence_matrix.n - j)
+                                        * x ** (incidence_matrix.n - j)
                                         for j in range(incidence_matrix.n)]).T
 
         derivatives_knots_up = Knots(x_pow_n_derivatives, up)

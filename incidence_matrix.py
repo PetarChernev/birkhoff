@@ -45,9 +45,14 @@ class IncidenceMatrix:
 
     def reduce(self) -> Tuple["IncidenceMatrix", "IncidenceMatrix"]:
         up = np.copy(self.array[:, :-1])
-        up[0, np.nonzero(up[0, :])[0][-1]] = 0
+        first_non_zero_row = np.nonzero(up.sum(axis=1))[0][0]
+        last_one_in_row = np.nonzero(up[first_non_zero_row, :])[0][-1]
+        up[first_non_zero_row, last_one_in_row] = 0
+
         down = np.copy(self.array[:, :-1])
-        down[-1, np.nonzero(down[-1, :])[0][-1]] = 0
+        last_non_zero_row = np.nonzero(down.sum(axis=1))[0][-1]
+        last_one_in_row = np.nonzero(down[last_non_zero_row, :])[0][-1]
+        down[last_non_zero_row, last_one_in_row] = 0
         return IncidenceMatrix(up), IncidenceMatrix(down)
 
     def __repr__(self):
