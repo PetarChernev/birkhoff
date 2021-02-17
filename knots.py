@@ -2,9 +2,11 @@ import numpy as np
 
 
 class Knots:
-    def __init__(self, array, incidence_matrix):
+    def __init__(self, array, incidence_matrix: "IncidenceMatrix"):
         self.incidence = incidence_matrix
 
+        if isinstance(array, list):
+            array = np.array(array)
         if len(array.shape) == 1:
             self.long = array
             self.square = self._square_form()

@@ -25,11 +25,13 @@ def solve_lagrangian(x, w, incidence_matrix):
 
 
 def solve(x, w, incidence_matrix) -> Polynomial:
-    if isinstance(w, np.ndarray):
-        w = Knots(w, incidence_matrix)
-    if isinstance(incidence_matrix, np.ndarray):
+    if isinstance(incidence_matrix, (np.ndarray, list)):
         incidence_matrix = IncidenceMatrix(incidence_matrix)
-    if not incidence_matrix.polya_condition():
+    if isinstance(w, (np.ndarray, list)):
+        w = Knots(w, incidence_matrix)
+    if isinstance(x, list):
+        x = np.array(x)
+    if not incidence_matrix.polya_condition:
         print("Warning: incidence_matrix does not satisfy Polya condition and it is not balanced. The problem "
               "migth not have a solution for the specified x and w.")
     assert len(x) == incidence_matrix.k

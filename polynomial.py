@@ -6,6 +6,7 @@ class Polynomial:
     def __init__(self, coefficients):
         self.coefficients = coefficients
         self.order = len(coefficients)
+        self.__apply_vec = np.vectorize(self._apply_to_single_x)
 
     def __add__(self, other: "Polynomial"):
         order = max(self.order, other.order)
@@ -17,13 +18,16 @@ class Polynomial:
         return Polynomial(np.pad(self.coefficients, (0, order - self.order)) - \
                           - np.pad(other.coefficients, (0, order - other.order)))
 
+    def __call__(self, x):
+        return self.__apply_vec(x)
+
     def __getitem__(self, item: int):
         return self.coefficients[item]
 
     def __mul__(self, other: int):
         return Polynomial([c * other for c in self.coefficients])
 
-    def __call__(self, x):
+    def _apply_to_single_x(self, x):
         return sum(self[i] * x ** i for i in range(len(self.coefficients)))
 
     def integrate(self, n):
