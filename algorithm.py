@@ -7,6 +7,12 @@ from polynomial import Polynomial
 
 
 def solve_lagrangian(x, w, incidence_matrix):
+    """
+    :param x: (np.ndarray, shape=(k,))
+    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|)
+    :param incidence_matrix: (IncidenceMatrix)
+    :return: (Polynomial)
+    """
     assert len(x.shape) == 1
     assert incidence_matrix.array[:, 1:].sum() == 0
     x = x[incidence_matrix.array[:, 0].astype(bool)]
@@ -25,6 +31,12 @@ def solve_lagrangian(x, w, incidence_matrix):
 
 
 def solve(x, w, incidence_matrix) -> Polynomial:
+    """
+    :param x: (np.ndarray, shape=(k,))
+    :param w: (Union[np.ndarray, Knots], shape=incidence_matrix.array.shape or |incidence_matrix|)
+    :param incidence_matrix: (IncidenceMatrix)
+    :return: (Polynomial)
+    """
     if isinstance(incidence_matrix, (np.ndarray, list)):
         incidence_matrix = IncidenceMatrix(incidence_matrix)
     if isinstance(w, (np.ndarray, list)):

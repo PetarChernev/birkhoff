@@ -3,6 +3,10 @@ import math
 
 
 class Polynomial:
+    """
+    Holds a list of coefficients and implements operations between polynomials, differentiation, integration and
+    getting the value of the function at a point x.
+    """
     def __init__(self, coefficients):
         self.coefficients = coefficients
         self.order = len(coefficients)
